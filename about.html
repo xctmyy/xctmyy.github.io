@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 | tmyy</title>
+    <style>
+        :root {
+            --primary-color: #7f5af0;
+            --secondary-color: #2cb67d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            background: linear-gradient(135deg, #0f0e17 30%, #2a2a3d);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fffffe;
+        }
+
+        /* 头像样式 */
+        .avatar {
+            position: absolute;
+            left: 5%;
+            top: 10%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 毛玻璃内容窗口 */
+        .content-box {
+            position: relative;
+            width: 70%;
+            min-height: 400px;
+            margin: 8% auto 0;
+            background: rgba(15, 14, 23, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 复用粒子动画样式 */
+        .bubble {
+            position: fixed;
+            background: hsla(0, 0%, 100%, 0);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: bubbleBirth 1.5s ease-out forwards,
+                       bubbleMove 3s linear infinite;
+            filter: blur(2px);
+        }
+
+        @keyframes bubbleBirth {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 0.7; }
+            100% { opacity: 0; transform: scale(1) translateY(-300%); }
+        }
+
+        @media (max-width: 768px) {
+            .content-box {
+                width: 90%;
+                margin-top: 25%;
+            }
+            .avatar {
+                width: 80px;
+                height: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="avatar">
+        <img src="avatar.jpg" alt="头像">
+    </div>
+
+    <div class="content-box">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); -webkit-background-clip: text; color: transparent;">
+            关于me
+        </h2>
+        <p style="line-height: 1.8; color: #94a1b2;">
+            你好，我是tmyy，一个热爱开发的学生<br>
+            不知道要说啥，来都来了，你给我点个外卖吧<br>
+            喵<br>
+            <br>
+            微信：RBMK-HeSa326<br>
+            QQ群号：1032222797<br>
+            电报群：<a href="https://t.me/mzxnb666">@mzxnb666</a><br>
+            电报频道：<a href="https://t.me/tmyy520">@tmyy520</a>
+        </p>
+    </div>
+
+    <script>
+        // 复用粒子生成逻辑
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const size = Math.random() * 6 + 2;
+            const hue = Math.random() * 360;
+            const x = Math.random() * innerWidth;
+            const startY = Math.random() * innerHeight;
+            const moveX = (Math.random() - 0.5) * 80;
+            const moveY = (Math.random() - 0.5) * 60;
+            const angle = Math.random() * 360;
+            
+            bubble.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                background: hsla(${hue}, 70%, 60%, 0.7);
+                left: ${x}px;
+                top: ${startY}px;
+                --move-x: ${moveX}px;
+                --move-y: ${moveY}px;
+                --angle: ${angle}deg;
+                transform: rotate(${angle}deg);
+                animation-delay: ${Math.random() * 2}s;
+            `;
+            
+            document.body.appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 3000);
+        }
+
+        setInterval(createBubble, 200);
+    </script>
+</body>
+</html>

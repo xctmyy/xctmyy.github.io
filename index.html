@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tmyy's Blog</title>
+    <style>
+        :root {
+            --primary-color: #7f5af0;
+            --secondary-color: #2cb67d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            position: relative;
+            background: linear-gradient(135deg, #0f0e17 30%, #2a2a3d);
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fffffe;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleEnter 1s ease-out;
+        }
+
+        @keyframes titleEnter {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 1.2rem 2.4rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn {
+            padding: 1.2rem 2.4rem;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            &:hover {
+                transform: scale(1.05) translateY(-3px);
+                box-shadow: 0 8px 15px rgba(127, 90, 240, 0.3);
+            }
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 14, 23, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--secondary-color);
+            display: none;
+            z-index: 100;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: space-around;
+            padding: 2rem;
+            gap: 1.5rem;
+        }
+
+        .social-icons i {
+            font-size: 2.5rem;
+            color: #94a1b2;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .social-icons i:hover {
+            color: var(--secondary-color);
+            transform: scale(1.2) translateY(-5px);
+            filter: drop-shadow(0 5px 15px rgba(44, 182, 125, 0.4));
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 0.5rem;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 2rem;
+            text-align: center;
+            width: 100%;
+            color: #94a1b2;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                grid-template-columns: 1fr;
+                width: 80%;
+            }
+        }
+    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <canvas id="particles"></canvas>
+
+    <div class="main-content">
+        <h1>tmyy's Space</h1>
+        <div class="action-buttons">
+            <button class="btn" onclick="location.href='about.html'">关于我</button>
+            <button class="btn" onclick="showModal('sponsor')">赞助我</button>
+            <button class="btn" onclick="showModal('contact')">联系我</button>
+        </div>
+    </div>
+
+    <!-- 赞助弹窗 -->
+    <div id="sponsorModal" class="modal">
+        <div class="modal-header">
+            <button class="close-btn" onclick="closeModal('sponsor')">×</button>
+        </div>
+        <h2>支持作者</h2>
+        <div id="qrcode"><!-- 后续添加二维码 --></div>
+    </div>
+
+    <!-- 联系弹窗 -->
+    <div id="contactModal" class="modal">
+        <div class="modal-header">
+            <button class="close-btn" onclick="closeModal('contact')">×</button>
+        </div>
+        <div class="social-icons">
+            <a href="weixin://contacts/profile/RBMK-HeSa326" class="social-link" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener"><i class="fab fa-weixin"></i></a>
+            <a href="https://qm.qq.com/q/FDxjzISnuO" class="social-link" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener"><i class="fab fa-qq"></i></a>
+            <a href="https://space.bilibili.com/1605719047" class="social-link" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener"><i class="fab fa-bilibili"></i></a>
+            <a href="https://t.me/tmyy520" class="social-link" target="_blank" rel="noopener" rel="noopener" rel="noopener" rel="noopener"><i class="fab fa-telegram-plane"></i></a>
+            <a href="mailto:mzxtiamy@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Power by tmyy | 2025</p>
+        <p>MIT License</p>
+    </footer>
+
+    <script>
+        // 粒子动画
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.reset();
+                this.alpha = 0;
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 2;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.life = 1;
+                this.decay = 0.001 + Math.random() * 0.02;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                this.alpha = Math.sin(this.life * Math.PI) * 0.5;
+
+                if (this.life <= 0) this.reset();
+            }
+
+            draw() {
+                ctx.fillStyle = `hsla(267, 87%, 65%, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = Array(100).fill().map(() => new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 弹窗控制
+        function showModal(type) {
+            document.getElementById(`${type}Modal`).style.display = 'block';
+        }
+
+        function closeModal(type) {
+            document.getElementById(`${type}Modal`).style.display = 'none';
+        }
+
+        // 窗口调整
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
