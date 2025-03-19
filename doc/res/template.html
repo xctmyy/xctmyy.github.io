@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章模板</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="content-box">
+        <article class="article-content">
+            <!-- 标题 -->
+            <h1 class="title-glow">文章标题</h1>
+            
+            <!-- 文字内容 -->
+            <div class="text-content">
+                <p>这里是文章正文内容...</p>
+            </div>
+
+            <!-- 图片示例 -->
+            <img src="placeholder.jpg" alt="示例图片">
+
+            <!-- 代码块 -->
+            <pre><code class="language-javascript">// 示例代码
+function hello() {
+    console.log('毛玻璃效果代码框');
+}</code></pre>
+
+            <!-- 语音控件 -->
+            <audio controls>
+                <source src="sample.mp3" type="audio/mpeg">
+                您的浏览器不支持音频播放
+            </audio>
+        </article>
+    </div>
+
+    <!-- 粒子画布 -->
+    <canvas id="particles"></canvas>
+
+    <script>
+        // 粒子动画脚本（从index.html迁移）
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 2;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(270, 70%, 80%, ${this.alpha})`;
+                ctx.fill();
+                this.y -= this.speed;
+                if (this.y < -10) this.reset();
+            }
+        }
+
+        const particles = Array(80).fill().map(() => new Particle());
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => p.draw());
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
