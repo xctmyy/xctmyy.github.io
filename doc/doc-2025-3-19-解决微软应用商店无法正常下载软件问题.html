@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解决微软应用商店无法正常下载软件问题 | tmyy</title>
+    <link rel="stylesheet" href="res/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="content-box">
+        <article class="article-content">
+            <h1 class="title-glow">解决微软应用商店无法正常下载软件问题</h1>
+            
+            <div class="text-content">
+                <p>去年我更新Windows后，想在微软应用商店中下载软件，却发现无法正常下载了，显示报错：0x80072F8F。我在网上搜了很多文章，跟着做，却一直没有解决这个问题。</p>
+            </div>
+
+            <img src="image/2025-3-19-001.jpg" alt="微软应用商店报错截图" class="content-image">
+            
+            <div class="text-content">
+                <p>后来我找到了一个网站，可以直接从该网站下载微软商店的应用，并使用powershell安装。这可以用来代替微软商店来解决这个问题。网站：<a href="https://store.rg-adguard.net/" target="_blank">https://store.rg-adguard.net</a><br></p>
+                <p>使用方法（详见<a href="https://www.bilibili.com/video/BV1Z5F5efEp3" target="_blank">该视频</a>）：<br></p>
+                <p>1.在设置中打开“开发人员模式”<br></p>
+                <p>2.在微软商店该应用的页面，点击“分享”，并复制链接<br></p>
+                <p>3.进入该网站，粘贴链接，搜索。找到与你计算机系统匹配的版本，下载。注意：下载的包后缀一般都带appx或msix，后缀为BlockMap的文件并不是安装包<br></p>
+                <p>4.使用管理员权限打开powershell，输入命令：</p>
+                <pre data-lang="powershell"><code class="language-powershell">Add-AppxPackage -Path "下载的安装包路径"</code></pre><br>
+                <p>安装完成后，在开始菜单中找到该应用，点击运行，查看是否正常运行，若不能请下载其他的版本<br></p>
+                <p>注：下载时浏览器可能会报不安全的提示，请忽略，信任即可</p>
+            </div>
+        </article>
+    </div>
+
+    <canvas id="particles"></canvas>
+    <script src="res/copy.js"></script>
+</body>
+</html>
