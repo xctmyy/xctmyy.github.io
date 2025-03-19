@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表</title>
+    
+    <style>
+        :root {
+          --primary-color: #2a195c;
+          --secondary-color: #494d2f;
+          --glass-bg: rgba(15, 14, 23, 0.85);
+        }
+
+        body {
+          background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+          min-height: 100vh;
+          margin: 0;
+          font-family: 'Segoe UI', sans-serif;
+          color: #fffffe;
+        }
+
+        .content-box {
+          background: var(--glass-bg);
+          backdrop-filter: blur(15px);
+          border-radius: 20px;
+          padding: 2rem;
+          margin: 2rem auto;
+          max-width: 800px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+          .content-box {
+            margin: 1rem;
+            padding: 1rem;
+          }
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+        .article-date {
+            font-size: 1.2em;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+        }
+        .article-title {
+            font-size: 1.5em;
+            background: linear-gradient(45deg, #00ff88, #00ffff);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 10px 0;
+        }
+        .top-bar {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          padding: 1.5rem 2rem;
+        }
+
+        .game-btn {
+          position: absolute;
+          right: 2rem;
+          padding: 0.8rem 1.5rem;
+          background: linear-gradient(45deg, #9F7AEA, #2DD4BF);
+          border: none;
+          border-radius: 30px;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s;
+          box-shadow: 0 4px 15px rgba(159, 122, 234, 0.4);
+        }
+
+        .game-btn:hover {
+          box-shadow: 0 6px 20px rgba(45, 212, 191, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-bar">
+        <h1 class="title-glow">文章列表</h1>
+        <button class="game-btn" onclick="alert('功能开发中...')">小游戏</button>
+    </nav>
+
+    <div class="content-box" id="article-list">
+        <!-- 文章列表动态加载 -->
+    </div>
+
+    <canvas id="particles"></canvas>
+
+    <script>
+        // 粒子动画初始化
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = document.documentElement.scrollHeight;
+
+        // 加载文章列表
+        fetch('articles.cfg')
+            .then(response => response.json())
+            .then(articles => {
+                const container = document.getElementById('article-list');
+                articles.reverse().forEach(article => {
+                    const filenameMatch = article.filename.match(/doc-(\d{4})-(\d{1,2})-(\d{1,2})-([\u4e00-\u9fa5\w\-\.]+)\.html/);
+                    const [_, year, month, day] = filenameMatch;
+                    article.link = `${filenameMatch[0]}`;
+                    const card = document.createElement('div');
+                    card.className = 'article-card';
+                    card.innerHTML = `
+                        <div class="article-date">${year}年${month}月${day}日</div>
+                        <a href="doc/${article.link}" class="article-title">${article.title || article.filename.split('-').slice(4).join(' ').replace('.html', '')}</a>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+    </script>
+</body>
+</html>
