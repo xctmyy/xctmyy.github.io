@@ -45,6 +45,7 @@
             padding: 20px;
             margin: 20px 0;
             transition: transform 0.3s;
+            z-index: 5;
         }
         .article-card:hover {
             transform: translateY(-5px);
@@ -109,11 +110,20 @@
 
         // 加载文章列表
         fetch('articles.cfg')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(articles => {
                 const container = document.getElementById('article-list');
+                if (!articles || articles.length === 0) {
+                    container.innerHTML = '<div class="article-card"><div class="article-title">暂无文章</div></div>';
+                    return;
+                }
                 articles.reverse().forEach(article => {
-                    const filenameMatch = article.filename.match(/doc-(\d{4})-(\d{1,2})-(\d{1,2})-([\u4e00-\u9fa5\w\-\.]+)\.html/);
+                    const filenameMatch = article.filename.match(/doc-(\d{4})-(\d{1,2})-(\d{1,2})-(.+)\.html/);
                     const [_, year, month, day] = filenameMatch;
                     article.link = `${filenameMatch[0]}`;
                     const card = document.createElement('div');
@@ -124,6 +134,11 @@
                     `;
                     container.appendChild(card);
                 });
+            })
+            .catch(error => {
+                console.error('Error loading articles:', error);
+                const container = document.getElementById('article-list');
+                container.innerHTML = `<div class="article-card"><div class="article-title">加载文章失败: ${error.message}</div></div>`;
             });
     </script>
 </body>
