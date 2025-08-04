@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>您的专属个人网站 | xctmyy.github.io</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cae;
+            --accent-color: #ff7e5f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #495057;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .intro {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .pricing {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .price-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 45%;
+            min-width: 250px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .price-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 1rem 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-dingtalk {
+            background-color: #008CE7;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-dingtalk:hover {
+            background-color: #0077C0;
+        }
+        
+        .btn:hover {
+            background-color: #ff6a45;
+        }
+        
+        .features {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .features ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .features li:before {
+            content: "✓";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .dingtalk-qr {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .dingtalk-qr img {
+            max-width: 200px;
+            height: auto;
+            border: 1px solid #eee;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 600px) {
+            .pricing {
+                flex-direction: column;
+            }
+            
+            .price-card {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>您的专属个人网站</h1>
+            <p class="tagline">在 xctmyy.github.io 上拥有您的专属空间</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <h2>为什么选择我们的个人网站服务？</h2>
+            <p>在数字时代，拥有一个个人网站是展示自我、分享想法和建立个人品牌的最佳方式。我们的服务让这一切变得简单——无需技术知识，无需维护服务器，只需几分钟就能拥有一个精美的个人网站。</p>
+            <p>您的个人网站将拥有类似 <code>xctmyy.github.io/vip/您的用户名</code> 的专属地址，完全由您掌控内容。</p>
+        </section>
+        
+        <section class="pricing">
+            <div class="price-card">
+                <h3>首月特惠</h3>
+                <div class="price">¥15</div>
+                <p>第一个月的超值体验价</p>
+                <a href="#" class="btn">立即购买</a>
+            </div>
+            
+            <div class="price-card">
+                <h3>续费价格</h3>
+                <div class="price">¥30/月</div>
+                <p>后续每月仅需30元</p>
+                <a href="#" class="btn">订阅计划</a>
+            </div>
+
+            <div class="price-card">
+                <h3>私人定制</h3>
+                <div class=price">¥单独联系</div>
+                <p>定制个人专属UI</p>
+                <a href="#" class="btn">立即定制</a>
+            </div>
+        </section>
+        
+        <section class="features">
+            <h2>功能特点</h2>
+            <ul>
+                <li>完全自定义的个人页面</li>
+                <li>99.9% 的正常运行时间保证</li>
+                <li>无需技术知识，轻松维护</li>
+                <li>支持自定义域名（额外配置重定向）</li>
+                <li>UI适配所有设备</li>
+                <li>7×24 小时技术支持</li>
+            </ul>
+        </section>
+        
+        <section class="intro">
+            <h2>如何开始？</h2>
+            <p>只需点击上方按钮购买服务，我们会为您创建专属的个人网站空间。您将收到登录信息，可以立即开始自定义您的内容。</p>
+            
+            <div class="dingtalk-qr">
+                <h3>加入我们的钉钉群获取支持</h3>
+                <p>扫描下方二维码或点击按钮加入群聊</p>
+                <img src="qunma.png" alt="钉钉群二维码">
+                <p>
+                    <a href="https://qr.dingtalk.com/action/joingroup?code=v1,k1,LVp6w/BttJ+5waPkQXnC6bhN+CpUuZw7eyba4oygqaWdR7ksupjDEA==&_dt_no_comment=1&origin=11" class="btn btn-dingtalk">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M4.5 0A4.5 4.5 0 0 0 0 4.5v7A4.5 4.5 0 0 0 4.5 16h7a4.5 4.5 0 0 0 4.5-4.5v-7A4.5 4.5 0 0 0 11.5 0h-7zm1.438 3.313h2.25v4.125h1.5V3.313h2.25v7.875h-2.25V7.063h-1.5v4.125h-2.25V3.313z"/>
+                        </svg>
+                        加入钉钉群
+                    </a>
+                </p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2025 xctmyy.github.io VIP 个人网站服务 | 保留所有权利</p>
+    </footer>
+</body>
+</html>
