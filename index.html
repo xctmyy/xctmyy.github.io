@@ -12,13 +12,9 @@
   <body>
     <div id="app"></div>
     <script>
-      // 自动检测并添加hash，解决GitHub Pages直接访问深层路径问题
-      if (!window.location.hash && window.location.pathname !== '/') {
-        // 保留查询参数和hash部分
-        const search = window.location.search || '';
-        const pathname = window.location.pathname || '';
-        const newHash = '#/' + pathname.substring(1) + search;
-        window.location.replace(window.location.origin + window.location.pathname + newHash);
+      // 自动补齐#号
+      if (window.location.pathname !== '/' && window.location.hash === '') {
+        window.location.href = '/#' + window.location.pathname
       }
     </script>
   </body>
